@@ -398,6 +398,26 @@ sBtn.addEventListener('click',()=>{
   if(!vid.muted){ const p=vid.play(); if(p&&p.catch)p.catch(()=>{}); }
 });
 
+/* ---------- auto-enable sound where the browser allows it (e.g. kiosk apps) ----------
+   Falls back silently to muted + the manual speaker button on normal browsers
+   that block autoplay-with-sound. */
+let autoSoundTried=false;
+function tryAutoSound(){
+  if(autoSoundTried) return;
+  autoSoundTried=true;
+  vid.muted=false;
+  sBtn.textContent='\u{1F50A}';
+  const p=vid.play();
+  if(p&&p.catch){
+    p.catch(()=>{                 // blocked: revert to muted and keep playing
+      vid.muted=true;
+      sBtn.textContent='\u{1F507}';
+      const q=vid.play(); if(q&&q.catch) q.catch(()=>{});
+    });
+  }
+}
+vid.addEventListener('playing', tryAutoSound, {once:true});
+
 /* ---------- go ---------- */
 load(0);
 </script>
