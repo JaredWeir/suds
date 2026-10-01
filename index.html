@@ -140,7 +140,7 @@ const OCTOBER=[
   {t:"White Zombie",y:1932,dir:"Victor Halperin",note:"Lugosi's hypnotic stare over a Haitian sugar mill.",slug:"white-zombie"},
   {t:"The Bat",y:1959,dir:"Crane Wilbur",note:"Price, Agnes Moorehead, and a killer in a cape.",slug:"the-bat"},
   {t:"One Million B.C.",y:1940,dir:"Hal Roach",note:"Cavemen, volcanoes, and very large lizards.",slug:"one-million-bc"},
-  {t:"First Spaceship on Venus",y:1960,dir:"Kurt Maetzig",note:"A candy-colored rocket to a doomed planet.",slug:"first-spaceship-on-venus"},
+  {t:"First Spaceship on Venus",y:1960,dir:"Kurt Maetzig",note:"A candy-colored rocket to a doomed planet.",slug:"first-spaceship-on-venus",v:2},
   {t:"Attack of the 50 Ft. Woman",y:1958,dir:"Nathan Juran",note:"Scorned, betrayed — and fifty feet of fury.",slug:"attack-of-the-50-foot-woman"},
   {t:"The Wasp Woman",y:1959,dir:"Roger Corman",note:"A cosmetics queen's youth serum has a sting.",slug:"the-wasp-woman"},
   {t:"Bride of the Monster",y:1955,dir:"Ed Wood",note:"Lugosi, a rubber octopus, and pure Ed Wood.",slug:"bride-of-the-monster"},
@@ -224,7 +224,7 @@ function showLoading(t,s,off){ loadTitle.textContent=t; loadSub.innerHTML=s; loa
 function hideLoading(){ loadingEl.classList.remove('show','offline'); }
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 let order=shuffle(PLAYLIST), idx=0, fails=0, current=order[0], usedFallback=false, loadTimer=null;
-function cdnUrl(f){ return CDN+f.slug+".mp4"; }
+function cdnUrl(f){ return CDN+f.slug+".mp4"+(f.v?("?v="+f.v):""); }
 function arcUrl(f){ return f.id?("https://archive.org/download/"+f.id+"/"+encodeURIComponent(f.f)):null; }
 function setHeader(f){ npTitle.textContent=f.t; npMeta.textContent=f.y+"   ·   dir. "+f.dir; npNote.textContent=f.note; }
 function clearLoadTimer(){ if(loadTimer){ clearTimeout(loadTimer); loadTimer=null; } }
